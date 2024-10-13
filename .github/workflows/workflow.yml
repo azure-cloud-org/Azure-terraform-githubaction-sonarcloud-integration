@@ -1,0 +1,63 @@
+
+name: Terraform Workflow
+
+on:
+  push:
+    branches:
+      - [ main ]
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID}}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  
+
+permissions:
+  contents: read
+
+jobs:
+  terraform_worflow:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+      
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt 
+      
+      
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan 
+      
+
+    # Generates an execution plan for Terraform
+    - name: Terraform apply
+      run: terraform apply --auto-approve 
+      
+
+
+    
