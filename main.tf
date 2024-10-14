@@ -34,6 +34,11 @@ resource "azurerm_mssql_server" "example" {
   version                      = "12.0"
   administrator_login          = "admin32156"
   administrator_login_password = "F0rtigate@123"
+  tags = {
+    env = "Dev"
+    env = "Dev"
+    owner = "vivek"
+  }
 }
 
 
@@ -41,6 +46,11 @@ resource "azurerm_mssql_server" "example" {
 resource "azurerm_resource_group" "myrg-sonarcloud-2" {
   name = "myrg-sonarcloud-integration-2"
   location = "East US"
+  tags = {
+    env = "Dev"
+    env = "Dev"
+    owner = "vivek"
+  }
 }
 
 ##Repeated commented lines to verify configured sonarcloud quality gate rule
@@ -52,4 +62,9 @@ resource "azurerm_virtual_network" "myvnet-sonarcloud-2" {
   address_space       = ["10.2.0.0/24"]
   location            = azurerm_resource_group.myrg-sonarcloud-2.location
   resource_group_name = azurerm_resource_group.myrg-sonarcloud-2.name
+  tags = {
+    env = "Dev"
+    env = "Dev"
+    owner = "vivek"
+  }
 }
