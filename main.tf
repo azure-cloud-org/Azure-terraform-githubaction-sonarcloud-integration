@@ -36,7 +36,7 @@ resource "azurerm_mssql_server" "example" {
   administrator_login_password = "F0rtigate@123"
   tags = {
     env = "Dev"
-    env = "Dev"
+    env = "prod"
     owner = "vivek"
   }
 }
@@ -48,7 +48,7 @@ resource "azurerm_resource_group" "myrg-sonarcloud-2" {
   location = "East US"
   tags = {
     env = "Dev"
-    env = "Dev"
+    env = "prod"
     owner = "vivek"
   }
 }
@@ -64,7 +64,7 @@ resource "azurerm_virtual_network" "myvnet-sonarcloud-2" {
   resource_group_name = azurerm_resource_group.myrg-sonarcloud-2.name
   tags = {
     env = "Dev"
-    env = "Dev"
+    env = "prod"
     owner = "vivek"
   }
 }
