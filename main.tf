@@ -29,8 +29,8 @@ resource "azurerm_subnet" "mysubnet-sonarcloud" {
 
 resource "azurerm_mssql_server" "example" {
   name                         = "example-sqlserver"
-  resource_group_name          = azurerm_resource_group.myrg-sonarcloud.name
-  location                     = azurerm_resource_group.myrg-sonarcloud.location
+  resource_group_name          = azurerm_resource_group.myrg-sonarcloud-2.name
+  location                     = azurerm_resource_group.myrg-sonarcloud-2.location
   version                      = "12.0"
   administrator_login          = "admin32156"
   administrator_login_password = "F0rtigate@123"
