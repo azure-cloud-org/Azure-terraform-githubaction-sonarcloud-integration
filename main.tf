@@ -55,8 +55,6 @@ resource "azurerm_resource_group" "myrg-sonarcloud-2" {
 
 ##Repeated commented lines to verify configured sonarcloud quality gate rule
 # Create Virtual Network
-# Create Virtual Network
-# Create Virtual Network
 resource "azurerm_virtual_network" "myvnet-sonarcloud-2" {
   name                = "myvnet-sonarcloud-integration-demo-2"
   address_space       = ["10.2.0.0/24"]
