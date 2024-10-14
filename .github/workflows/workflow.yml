@@ -57,14 +57,14 @@ jobs:
       run: terraform plan
 
     - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey= ${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.organization= ${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.host.url= https://sonarcloud.io
+      uses: sonarSource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey= ${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.organization= ${{ secrets.SONAR_ORGANIZATION }}
+          -Dsonar.host.url= https://sonarcloud.io
       
 
     # Generates an execution plan for Terraform
