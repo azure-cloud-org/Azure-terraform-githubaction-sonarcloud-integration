@@ -70,7 +70,8 @@ jobs:
   terraform_apply:
     name: 'Terraform_apply'
     runs-on: ubuntu-latest
-    needs: [SonarCloud Scan]   
+    needs: SonarCloud Scan
+    if: success()   
 
     steps:
     # Generates an execution plan for Terraform
