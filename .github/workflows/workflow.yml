@@ -62,7 +62,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=azure-cloud-githubaction-org/Azure-terraform-githubaction-sonarcloud-integration
+          -Dsonar.projectKey=azure-cloud-org_Azure-terraform-githubaction-sonarcloud-integration
           -Dsonar.organization=azure-cloud-githubaction-org
           -Dsonar.host.url=https://sonarcloud.io
       
