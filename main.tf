@@ -24,24 +24,6 @@ resource "azurerm_subnet" "mysubnet-sonarcloud" {
 }
 */
 
-##configured Clear text password to check/verify whether sonarcloud detect this config issue or not??
-##azure MSSQL Server
-
-resource "azurerm_mssql_server" "example" {
-  name                         = "example-sqlserver"
-  resource_group_name          = azurerm_resource_group.myrg-sonarcloud-2.name
-  location                     = azurerm_resource_group.myrg-sonarcloud-2.location
-  version                      = "12.0"
-  administrator_login          = "admin32156"
-  administrator_login_password = "F0rtigate@123"
-  tags = {
-    env = "Dev"
-    env = "prod"
-    owner = "vivek"
-  }
-}
-
-
 # Create a resource group
 resource "azurerm_resource_group" "myrg-sonarcloud-2" {
   name = "myrg-sonarcloud-integration-2"
@@ -64,5 +46,51 @@ resource "azurerm_virtual_network" "myvnet-sonarcloud-2" {
     env = "Dev"
     env = "prod"
     owner = "vivek"
+  }
+}
+
+# Create Subnet
+resource "azurerm_subnet" "mysubnet-sonarcloud" {
+  name                 = "mysubnet-snyk-integration"
+  resource_group_name  = azurerm_resource_group.myrg-sonarcloud-2.name
+  virtual_network_name = azurerm_virtual_network.myvnet-sonarcloud-2.name
+  address_prefixes     = ["10.2.0.0/27"]
+}
+
+
+##creating allow all inbound firewall rule to verify sonarcloud SAST detection
+resource "azurerm_network_security_group" "example-sonarcloud" {
+  name                = "example-nsg"
+  location            = azurerm_resource_group.myrg-sonarcloud-2.location
+  resource_group_name = azurerm_resource_group.myrg-sonarcloud-2.name
+
+  security_rule {
+    name                       = "test123"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "example-sonarcloud" {
+  subnet_id                 = azurerm_subnet.mysubnet-sonarcloud.id
+  network_security_group_id = azurerm_network_security_group.example-sonarcloud.id
+}
+
+##Storage account creation--with allow public access
+resource "azurerm_storage_account" "example-sonarcloud" {
+  name                     = "sonarcloudsa"
+  resource_group_name      = azurerm_resource_group.myrg-sonarcloud-2.name
+  location                 = azurerm_resource_group.myrg-sonarcloud-2.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+
+  tags = {
+    environment = "prod"
   }
 }
