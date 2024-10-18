@@ -49,14 +49,12 @@ jobs:
     - name: Terraform Format
       run: terraform fmt 
       
-      
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
       if: github.event_name == 'pull_request'
       
-
     - name: SonarCloud Scan
       uses: sonarSource/sonarcloud-github-action@master
       env:
