@@ -37,12 +37,6 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    - name: Run SonarCloud Scan
-      id: sonar_scan
-      run: sonar-scanner
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
     - name: Check SonarCloud Quality Gate
       id: sonar_quality_gate
       uses: sonarsource/sonarcloud-github-action@master
