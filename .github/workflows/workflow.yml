@@ -41,7 +41,7 @@ jobs:
       id: sonar_quality_gate
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        args: 'qualitygate'
+        args: 'quality-gate'
       continue-on-error: false
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
