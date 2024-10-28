@@ -94,7 +94,7 @@ resource "azurerm_virtual_network" "myvnet-sonarcloud-quality-gate" {
 # Create Subnet
 resource "azurerm_subnet" "mysubnet-sonarcloud-quality-gate" {
   name                 = "mysubnet-sonarcloud-quality-gate"
-  resource_group_name  = azurerm_resource_group.mmyrg-sonar-quality-gate.name
+  resource_group_name  = azurerm_resource_group.myrg-sonar-quality-gate.name
   virtual_network_name = azurerm_virtual_network.myvnet-sonarcloud-quality-gate.name
   address_prefixes     = ["10.1.0.0/27"]
 }
