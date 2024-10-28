@@ -41,7 +41,9 @@ jobs:
       id: sonar_quality_gate
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        args: 'quality-gate'
+        args: >
+          -Dsonar.qualitygate.wait=true
+          -Dsonar.host.url=https://sonarcloud.io
       continue-on-error: false
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
