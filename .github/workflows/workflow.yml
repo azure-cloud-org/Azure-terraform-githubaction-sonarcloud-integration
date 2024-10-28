@@ -18,8 +18,27 @@ permissions:
   contents: read
 
 jobs:
+  terraform_plan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Terraform Plan
+      id: terraform_plan
+      run: terraform plan 
+
   sonarcloud:
     runs-on: ubuntu-latest
+    needs: terraform_plan
 
     steps:
     - name: Checkout code
@@ -31,7 +50,7 @@ jobs:
       with:
         args: >
           -Dsonar.organization=azure-cloud-githubaction-org
-          -Dsonar.projectKey=azure-cloud-org_Azure-terraform-githubaction-sonarcloud-integration
+          -Dsonar.projectKey=azure-cloud-githubaction-org_new-azure-terraform-ga-sonarcloud-integration
           -Dsonar.sources=.
           -Dsonar.host.url=https://sonarcloud.io
       env:
@@ -45,7 +64,7 @@ jobs:
           -Dsonar.qualitygate.wait=true
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.organization=azure-cloud-githubaction-org
-          -Dsonar.projectKey=azure-cloud-org_Azure-terraform-githubaction-sonarcloud-integration
+          -Dsonar.projectKey=azure-cloud-githubaction-org_new-azure-terraform-ga-sonarcloud-integration
       continue-on-error: false
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -66,9 +85,6 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Terraform Plan
-      id: terraform_plan
-      run: terraform plan -out=tfplan
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && steps.sonar_quality_gate.conclusion == 'success'

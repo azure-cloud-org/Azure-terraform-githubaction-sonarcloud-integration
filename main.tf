@@ -107,7 +107,7 @@ resource "azurerm_network_security_group" "sonarcloud-quality-gate" {
 
   security_rule {
     name                       = "test123-quality-gate"
-    priority                   = 100
+    priority                   = 102
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
