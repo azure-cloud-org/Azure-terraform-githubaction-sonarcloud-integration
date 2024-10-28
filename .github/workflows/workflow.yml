@@ -44,6 +44,8 @@ jobs:
         args: >
           -Dsonar.qualitygate.wait=true
           -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.organization=azure-cloud-githubaction-org
+          -Dsonar.projectKey=azure-cloud-org_Azure-terraform-githubaction-sonarcloud-integration
       continue-on-error: false
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
